@@ -74,21 +74,24 @@ divProductTitle.appendChild(title);
 
 
 let items_array = [
-    { "name": "NoName Book", "id": 1, "sign": "$", count: 52 },
-    { "name": "Summer Bird Blue", "id": 2, "sign": "$", count: 12 },
-    { "name": "What You Think", "id": 3, "sign": "$", count: 32 },
-    { "name": "Boring Girls", "id": 4, "sign": "$", count: 43 },
-    { "name": "Unleash the Dragon", "id": 5, "sign": "$", count: 54 },
-    { "name": "A Million to One", "id": 6, "sign": "$", count: 65 },
-    { "name": "Edit This", "id": 7, "sign": "$", count: 14 },
-    { "name": "Design Formula", "id": 8, "sign": "$", count: 32 }
+    { "title": "Summer Bird Blue", "id": 1, image: "./images/book-1.jpeg", "sign": "$", price: 12.99 },
+    { "title": "What You Think", "id": 2, image: "./images/book-2.jpeg", "sign": "$", price: 32.99 },
+    { "title": "Boring Girls", "id": 3, image: "./images/book-3.jpeg", "sign": "$", price: 43.99 },
+    { "title": "Unleash the Dragon", "id": 4, image: "./images/book-4.jpeg", "sign": "$", price: 54.99 },
+    { "title": "A Million to One", "id": 5, image: "./images/book-5.jpeg", "sign": "$", price: 65.99 },
+    { "title": "Edit This", "id": 6, image: "./images/book-6.jpeg", "sign": "$", price: 14.98 },
+    { "title": "Design Formula", "id": 7, image: "./images/book-7.jpeg", "sign": "$", price: 32.99 },
+    { "title": "NoName Book", "id": 8, image: "./images/book-8.jpeg",  "sign": "$", price: 52.99 }
 ];
 
 //single product
 //
 
-
+//cart
 let cart = [];
+//buttons
+let buttonsDOM = [];
+
 
 function appendNode(parent, element) {
     parent.appendChild(element);
@@ -125,13 +128,14 @@ function displayItems(items, container) {
         item_node.setAttribute("class", 'img-container');
 
         let item_img = createNode("img");
-        item_img.setAttribute('src', "images/book-" + i + ".jpeg");
+        //item_img.setAttribute('src', "images/book-" + i + ".jpeg");
+        item_img.setAttribute('src', item.image);
         item_img.setAttribute('alt', 'product');
         item_img.setAttribute('class', 'product-img');
 
-        if (item.count > 0) {
-            item_node.innerHTML = `<button class="bag-btn" data-id=${i+1}><i class = 'fas fa-shopping-cart'>add to bag</i></button><h3>${item.name}</h3>${' '}<h4>${item.sign}
-            <span id="badge">${item.count}</span></h4>`;
+        if (item.price > 0) {
+            item_node.innerHTML = `<button class="bag-btn" data-id=${i}>add to bag</button><h3>${item.title}</h3>${' '}<h4>${item.sign}
+            <span id="badge">${item.price}</span></h4>`;
             appendNode(items_container, item_node);
             appendNode(item_node, item_img);
         }
@@ -140,54 +144,75 @@ function displayItems(items, container) {
 
 displayItems(items_array, "container");
 
-function addOrRemoveItemsFromCart(action) {
-    let container = '';
 
-    function takeAction(container) {
-        container.addEventListener("click", function (event) {
-            let item_id = event.target.id;
+const buttons = [...document.querySelectorAll(".bag-btn")];
+buttonsDOM = buttons;
+buttons.forEach(button => {
+  let id = button.dataset.id;
+  let inCart = cart.find(item => item.id === id);
+  if(inCart){
+    //button.innerText = "in cart";
+    let itemCartURL = "in cart"
+    button.innerHTML = itemCartURL;
+    button.disabled = true;
+  }
 
-            if (item_id !== "items" && item_id !== "badge") {
-                let item = items_array.filter(function (item) {
-                    return item.id == item_id;
-                })[0];
+    button.addEventListener('click', (event)=>{
+      //event.target.innerText = "in cart";
+      let itemCartURL = "in cart"
+      event.target.innerHTML = itemCartURL;
+      event.target.disabled = true;
+      // get product from products
+      let cartItem = {...items_array[id], amount: 1};
+      // add product to the cart
+      cart = [...cart, cartItem];
+      console.log(cart);
+      // save cart in local storage - undone
+      // set cart values
+      function setCartValues(cart){
+        let tempTotal = 0;
+        let itemsTotal = 0;
+        cart.map(item =>{
+          tempTotal += item.price * item.amount;
+          itemsTotal += item.amount
+        })
+        cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+        cartItems.innerText = itemsTotal;
+      }
+      setCartValues(cart);
 
-                let item_in_cart = cart.filter(function (item) {
-                    return item.id == item_id;
-                })[0];
+      // display cart items
+      function addCartItem(item) {
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `<img src=${item.image} alt="product"/>
+                        <div>
+                          <h4>${item.title}</h4>
+                          <h5>$${item.price}</h5>
+                          <span class = "remove-item" data-id=${item.id}>remove</span>
+                        </div>
+                        <div>
+                          <i class="fas fa-chevron-up" data-id=${item.id}></i>
+                          <p class="item-amount">${item.amount}</p>
+                          <i class="fas fa-chevron-down" data-id=${item.id}></i>
+                        </div>`;
+                    cartContent.appendChild(div);
+      }
+      addCartItem(cartItem);
 
-                if (item_in_cart == undefined) {
-                    cart.push(item);
-                } else if (action == "add") {
-                    item_in_cart.count++;
-                } else if (action == "remove") {
-                    item_in_cart.count--;
-                }
+      //show the cart
 
-                console.log(cart);
-                displayItems(cart, "cart");
-            };
-        });
-    };
+      cartBtn.addEventListener('click', function showCart () {
+        cartOverlay.classList.add('transparentBcg');
+        cartDOM.classList.add('showCart');
+      });
 
-    if (action == "add") {
-        container = getDiv("items");
-
-        takeAction(container)
-    }
-    else if (action == "remove") {
-        container = getDiv("cart");
-
-        takeAction(container)
-    };
-
-
-}
-
-
-addOrRemoveItemsFromCart('add');
-addOrRemoveItemsFromCart('remove');
-
+      closeCartBtn.addEventListener('click', function hideCart(){
+        cartOverlay.classList.remove('transparentBcg');
+        cartDOM.classList.remove('showCart');
+      });
+    })
+  })
 
 
 
@@ -222,47 +247,47 @@ cartContent.setAttribute('class', 'cart-content');
 cartDOM.appendChild(cartContent);
 
 //cart item
-const divCartItemList = document.createElement('div');
-divCartItemList.setAttribute('class', 'cart-item');
-cartContent.appendChild(divCartItemList);
-
-const imgCartList = document.createElement('img');
-imgCartList.setAttribute('src', 'images/book-1.jpeg');
-imgCartList.setAttribute('alt', 'product');
-imgCartList.setAttribute('class', 'product-img');
-divCartItemList.appendChild(imgCartList);
-
-const divCartItemInfo = document.createElement('div');
-divCartItemList.appendChild(divCartItemInfo);
-
-const cartItemName = document.createElement('h4');
-cartItemName.textContent = 'Summer Bird Blue';
-divCartItemInfo.appendChild(cartItemName);
-
-const cartItemPrice = document.createElement('h5');
-cartItemPrice.textContent = '$123';
-divCartItemInfo.appendChild(cartItemPrice);
-
-const cartItemRemove = document.createElement('span');
-cartItemRemove.setAttribute('class', 'remove-item');
-cartItemRemove.textContent = 'remove';
-divCartItemInfo.appendChild(cartItemRemove);
-
-const divCartChevrons = document.createElement('div');
-divCartItemList.appendChild(divCartChevrons);
-
-const iChevronUp = document.createElement('i');
-iChevronUp.setAttribute('class', 'fas fa-chevron-up');
-divCartChevrons.appendChild(iChevronUp);
-
-const pItemAmount = document.createElement('p');
-pItemAmount.setAttribute('class', 'item-amount');
-pItemAmount.textContent = 1;
-divCartChevrons.appendChild(pItemAmount);
-
-const iChevronDown = document.createElement('i');
-iChevronDown.setAttribute('class', 'fas fa-chevron-down');
-divCartChevrons.appendChild(iChevronDown);
+// const divCartItemList = document.createElement('div');
+// divCartItemList.setAttribute('class', 'cart-item');
+// cartContent.appendChild(divCartItemList);
+//
+// const imgCartList = document.createElement('img');
+// imgCartList.setAttribute('src', 'images/book-1.jpeg');
+// imgCartList.setAttribute('alt', 'product');
+// imgCartList.setAttribute('class', 'product-img');
+// divCartItemList.appendChild(imgCartList);
+//
+// const divCartItemInfo = document.createElement('div');
+// divCartItemList.appendChild(divCartItemInfo);
+//
+// const cartItemName = document.createElement('h4');
+// cartItemName.textContent = 'Summer Bird Blue';
+// divCartItemInfo.appendChild(cartItemName);
+//
+// const cartItemPrice = document.createElement('h5');
+// cartItemPrice.textContent = '$123';
+// divCartItemInfo.appendChild(cartItemPrice);
+//
+// const cartItemRemove = document.createElement('span');
+// cartItemRemove.setAttribute('class', 'remove-item');
+// cartItemRemove.textContent = 'remove';
+// divCartItemInfo.appendChild(cartItemRemove);
+//
+// const divCartChevrons = document.createElement('div');
+// divCartItemList.appendChild(divCartChevrons);
+//
+// const iChevronUp = document.createElement('i');
+// iChevronUp.setAttribute('class', 'fas fa-chevron-up');
+// divCartChevrons.appendChild(iChevronUp);
+//
+// const pItemAmount = document.createElement('p');
+// pItemAmount.setAttribute('class', 'item-amount');
+// pItemAmount.textContent = 1;
+// divCartChevrons.appendChild(pItemAmount);
+//
+// const iChevronDown = document.createElement('i');
+// iChevronDown.setAttribute('class', 'fas fa-chevron-down');
+// divCartChevrons.appendChild(iChevronDown);
 //end of cart item
 
 const divCartFooter = document.createElement('div');
