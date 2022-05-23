@@ -211,6 +211,13 @@ buttons.forEach(button => {
         cartOverlay.classList.remove('transparentBcg');
         cartDOM.classList.remove('showCart');
       });
+
+      function cartLogic() {
+
+      }
+
+
+
     })
   })
 
