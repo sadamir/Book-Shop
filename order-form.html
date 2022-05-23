@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <link rel="stylesheet" href="order.css">
+  <body>
+    <div class="wrapper">
+      <form id="forms" action="/" method = "GET">
+        <h1>Confirm Order</h1>
+          <div class="form">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" />
+          </div>
+          <div class="form">
+            <label for="surname">Surname</label>
+            <input id="surname" name="surname" type="text" />
+          </div>
+          <div class="form">
+            <label for="date">Delivery Date</label>
+            <input id="date" name="date" type="date"/>
+          </div>
+          <div class="form">
+            <label for="date">Street</label>
+            <input type="text" name="Street" placeholder="">
+          </div>
+          <div class="form">
+            <label for="date">House Number</label>
+            <input type="text" name="house" placeholder="">
+          </div>
+          <div class="form">
+            <label for="date">Flat Number</label>
+            <input type="text" name="flat" placeholder="">
+          </div>
+          <fieldset class="field">
+            <legend>Select payment:</legend>
+              <div class="form fieldsets">
+                <input type="radio" id="cash" name="drone" value="cash" checked>
+                <label for="cash">Cash</label>
+              </div>
+              <div class="form fieldsets">
+                <input type="radio" id="card" name="drone" value="card">
+                <label for="card">Card</label>
+              </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Select gifts:</legend>
+              <div class="form fieldsets">
+                <input type="checkbox" id="cash" name="drone" value="cash" checked>
+                <label for="cash">Pack as Gift</label>
+              </div>
+              <div class="form fieldsets">
+                <input type="checkbox" id="card" name="drone" value="card">
+                <label for="card">Add PostCard</label>
+              </div>
+              <div class="form fieldsets">
+                <input type="checkbox" id="card" name="drone" value="card">
+                <label for="card">provide 2% discount to the next time</label>
+              </div>
+              <div class="form fieldsets">
+                <input type="checkbox" id="card" name="drone" value="card">
+                <label for="card">branded pen or pencil</label>
+              </div>
+          </fieldset>
+        <button class="myButton" type="submit" href="/">Complete</button>
+      </form>
+    </div>
+  <script src="order.js" charset="utf-8"></script>
+  </body>
+</html>
