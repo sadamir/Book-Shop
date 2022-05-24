@@ -1,71 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en-GB" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" http-equiv="content-language" content="en-GB">
     <title></title>
   </head>
   <link rel="stylesheet" href="order.css">
   <body>
     <div class="wrapper">
-      <form id="forms" action="/" method = "GET">
+      <div id="error"></div>
+
         <h1>Confirm Order</h1>
+      <form id="forms" name="regform" method = "post" onsubmit="validateForm()">
           <div class="form">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" />
+            <label for="name">Name*</label>
+            <!-- <input id="name" name="name" type="text" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
+            <input id="name" name="name" type="text"/>
           </div>
           <div class="form">
-            <label for="surname">Surname</label>
-            <input id="surname" name="surname" type="text" />
+            <label for="surname">Surname*</label>
+            <!-- <input id="surname" name="surname" type="text" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
+            <input id="surname" name="surname" type="text">
           </div>
-          <div class="form">
-            <label for="date">Delivery Date</label>
+          <div class="form" >
+            <label for="date">Delivery Date*</label>
+            <!-- <input id="date" name="date" type="date" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
             <input id="date" name="date" type="date"/>
           </div>
           <div class="form">
-            <label for="date">Street</label>
-            <input type="text" name="Street" placeholder="">
+            <label for="date">Street*</label>
+            <!-- <input type="text" name="street" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
+            <input id ="street" name="street" type="text">
           </div>
           <div class="form">
-            <label for="date">House Number</label>
+            <label for="date">House Number*</label>
+            <!-- <input type="text" name="house" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
             <input type="text" name="house" placeholder="">
           </div>
           <div class="form">
-            <label for="date">Flat Number</label>
+            <label for="date">Flat Number*</label>
+            <!-- <input type="text" name="flat" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
             <input type="text" name="flat" placeholder="">
           </div>
           <fieldset class="field">
-            <legend>Select payment:</legend>
+            <legend>Select payment:*</legend>
               <div class="form fieldsets">
-                <input type="radio" id="cash" name="drone" value="cash" checked>
+                <!-- <input type="radio" id="cash" name="payment" value="cash" checked oninvalid="this.setCustomValidity('please check one option')" required> -->
+                <input type="radio" id="cash" name="payment" value="cash" checked>
                 <label for="cash">Cash</label>
               </div>
               <div class="form fieldsets">
-                <input type="radio" id="card" name="drone" value="card">
+                <input type="radio" id="card" name="payment" value="card">
                 <label for="card">Card</label>
               </div>
           </fieldset>
           <fieldset class="field">
-            <legend>Select gifts:</legend>
+            <legend>Select gifts: (max 2 options)</legend>
               <div class="form fieldsets">
-                <input type="checkbox" id="cash" name="drone" value="cash" checked>
+                <input type="checkbox" id="gift" name="gift" value="gift" checked>
                 <label for="cash">Pack as Gift</label>
               </div>
               <div class="form fieldsets">
-                <input type="checkbox" id="card" name="drone" value="card">
+                <input type="checkbox" id="gift" name="gift" value="gift2">
                 <label for="card">Add PostCard</label>
               </div>
               <div class="form fieldsets">
-                <input type="checkbox" id="card" name="drone" value="card">
+                <input type="checkbox" id="gift" name="gift" value="gift3">
                 <label for="card">provide 2% discount to the next time</label>
               </div>
               <div class="form fieldsets">
-                <input type="checkbox" id="card" name="drone" value="card">
+                <input type="checkbox" id="gift" name="gift" value="gift4">
                 <label for="card">branded pen or pencil</label>
               </div>
           </fieldset>
-        <button class="myButton" type="submit" href="/">Complete</button>
+        <button id="button" class="myButton" type="submit">Complete</button>
       </form>
     </div>
-  <script src="order.js" charset="utf-8"></script>
+  <script type="text/javascript" src="order.js"></script>
   </body>
 </html>
