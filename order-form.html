@@ -5,76 +5,133 @@
     <title></title>
   </head>
   <link rel="stylesheet" href="order.css">
+  <script src="https://kit.fontawesome.com/74a50cece9.js" crossorigin="anonymous"></script>
   <body>
     <div class="wrapper">
       <div id="error"></div>
 
         <h1>Confirm Order</h1>
-      <form id="forms" name="regform" method = "post" onsubmit="validateForm()">
-          <div class="form">
-            <label for="name">Name*</label>
-            <!-- <input id="name" name="name" type="text" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
-            <input id="name" name="name" type="text"/>
+      <form id="form-main" name="regform" method = "post" class='form-main'>
+        <div class="div-settings">
+
+          <div class="form form-input">
+            <label for="name" class="label-input">Name*</label>
+            <i class="fa-solid fa-user front-icon"></i>
+            <input id="name" name="name" type="text" class="input name-input" placeholder="First Name"/>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="error"></div>
+
           </div>
-          <div class="form">
-            <label for="surname">Surname*</label>
-            <!-- <input id="surname" name="surname" type="text" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
-            <input id="surname" name="surname" type="text">
+          <div class="form form-input">
+            <label for="surname" class="label-input">Surname*</label>
+            <i class="fa-solid fa-user front-icon"></i>
+            <input id="surname" name="surname" type="text" class="input" placeholder="Last Name"/>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="error"></div>
           </div>
-          <div class="form" >
-            <label for="date">Delivery Date*</label>
-            <!-- <input id="date" name="date" type="date" oninvalid="this.setCustomValidity('please fill in the blanks')" required/> -->
-            <input id="date" name="date" type="date"/>
+
+          <div class="form form-input" >
+            <label for="date" class="label-input">Delivery Date*</label>
+            <input id="date" name="date" type="date" class="input date-input"/>
+
+            <div class="error"></div>
           </div>
-          <div class="form">
-            <label for="date">Street*</label>
-            <!-- <input type="text" name="street" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
-            <input id ="street" name="street" type="text">
+
+          <div class="form form-input">
+            <label for="date" class="label-input">Street*</label>
+            <i class="fa-solid fa-road front-icon"></i>
+            <input id ="street" name="street" type="text" class="input" placeholder="Street Name"/>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="error"></div>
           </div>
-          <div class="form">
-            <label for="date">House Number*</label>
-            <!-- <input type="text" name="house" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
-            <input type="text" name="house" placeholder="">
+
+          <div class="form form-input">
+            <label for="date" class="label-input">House Number*</label>
+            <i class="fa-solid fa-house front-icon"></i>
+            <input id="house" type="text" name="house" placeholder="House Number" class="input"/>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="error"></div>
           </div>
-          <div class="form">
-            <label for="date">Flat Number*</label>
-            <!-- <input type="text" name="flat" placeholder="" oninvalid="this.setCustomValidity('please fill in the blanks')" required> -->
-            <input type="text" name="flat" placeholder="">
+
+          <div class="form form-input">
+            <label for="date" class="label-input">Flat Number*</label>
+            <i class="fa-solid fa-hashtag front-icon"></i>
+            <input id="flat" type="text" name="flat" placeholder="Flat Number" class="input"/>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="error"></div>
           </div>
+
+        </div>
+
+
           <fieldset class="field">
-            <legend>Select payment:*</legend>
+            <legend id="legend">Select payment:*</legend>
               <div class="form fieldsets">
-                <!-- <input type="radio" id="cash" name="payment" value="cash" checked oninvalid="this.setCustomValidity('please check one option')" required> -->
-                <input type="radio" id="cash" name="payment" value="cash" checked>
-                <label for="cash">Cash</label>
+                <input type="radio" id="cash" name="payment" value="cash" checked class="fieldbuttons">
+                <label for="cash">cash</label>
+
               </div>
               <div class="form fieldsets">
-                <input type="radio" id="card" name="payment" value="card">
-                <label for="card">Card</label>
+                <input type="radio" id="card" name="payment" value="card" class="fieldbuttons">
+                <label for="card">card</label>
+
               </div>
           </fieldset>
-          <fieldset class="field">
-            <legend>Select gifts: (max 2 options)</legend>
-              <div class="form fieldsets">
-                <input type="checkbox" id="gift" name="gift" value="gift" checked>
-                <label for="cash">Pack as Gift</label>
-              </div>
-              <div class="form fieldsets">
-                <input type="checkbox" id="gift" name="gift" value="gift2">
-                <label for="card">Add PostCard</label>
-              </div>
-              <div class="form fieldsets">
-                <input type="checkbox" id="gift" name="gift" value="gift3">
-                <label for="card">provide 2% discount to the next time</label>
-              </div>
-              <div class="form fieldsets">
-                <input type="checkbox" id="gift" name="gift" value="gift4">
-                <label for="card">branded pen or pencil</label>
-              </div>
+          <fieldset class="field gifts" name = "gifts">
+
+            <legend id="legend">Select gifts: (max 2 options)</legend>
+
+
+
+
+                  <div class="form fieldsets" name ="fieldsets">
+                    <input type="checkbox" id="gift" name=ckb value=1 onclick="chkcontrol(0)">
+                    <label for="cash">pack as Gift</label>
+                  </div>
+
+                  <div class="form fieldsets">
+                    <input type="checkbox" id="gift" name=ckb value=2 onclick="chkcontrol(1)">
+                    <label for="card">add PostCard</label>
+                  </div>
+
+                  <div class="form fieldsets">
+                    <input type="checkbox" id="gift" name=ckb value=3 onclick="chkcontrol(2)">
+                    <label for="card">provide 2% discount to the next time</label>
+                  </div>
+
+                  <div class="form fieldsets">
+                    <input type="checkbox" id="gift" name=ckb value=4 onclick="chkcontrol(3)">
+                    <label for="card">branded pen or pencil</label>
+                  </div>
+
+                  <div class="error"></div>
+
+
           </fieldset>
-        <button id="button" class="myButton" type="submit">Complete</button>
+
+        <button id="button" class="myButton" type="submit" action="">Complete</button>
       </form>
     </div>
+  <!-- <script>
+    function chkcontrol(j){
+      total = 0;
+      for(let i = 0; i.document.form1.ckb.length; i++){
+          if(document.form1.ckb[i].checked){
+            total += total;
+          }
+      }
+      if(total > 2){
+        errorMsg[6].innerHTML = 'only 2 gifts maximum';
+        document.form1.ckb[j].checked = false;
+      }
+      return false;
+    }
+  </script> -->
   <script type="text/javascript" src="order.js"></script>
   </body>
 </html>
